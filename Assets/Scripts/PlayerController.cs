@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,19 +14,28 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement")]
     private Vector2 direction;
-    public float movementSpeed;
-    public float maxSpeed = 6f;
-    public float accelerationSpeed = 25f;
+    public float movementSpeed = 9f;
+    public float acceleration = 7f;
+    public float decceleration = 9f;
+    public float velPower = 1.2f;
 
     [Header("Jumping")]
+    public float jumpForce = 12f;
     private bool isGrounded = false;
     private bool canDoubleJump = true;
-    public float jumpForce = 500f;
+    private bool isJumping = false;
+    private float lastGroundedTime;
 
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<Collider2D>();
+    }
+
+    private void Update()
+    {
+        // Coyote Timer
+        lastGroundedTime -= Time.deltaTime;
     }
 
     private void FixedUpdate()
@@ -36,15 +46,20 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        if (direction != Vector2.zero && movementSpeed < maxSpeed)
-        {
-            movementSpeed += Time.deltaTime * accelerationSpeed;
-        }
-        if (direction == Vector2.zero)
-        {
-            movementSpeed = 0f;
-        }
-        rigidBody.velocity = (new Vector2(direction.x * movementSpeed, rigidBody.velocity.y));
+        float targetSpeed = direction.x * movementSpeed;
+        float speedDif = targetSpeed - rigidBody.velocity.x;
+        float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : decceleration;
+        float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPower) * Mathf.Sign(speedDif);
+
+        rigidBody.AddForce(movement * Vector2.right, ForceMode2D.Force);
+    }
+
+    private void Jump()
+    {
+        rigidBody.velocity = new Vector2(direction.x ,0f);
+        rigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        lastGroundedTime = 0;
+        isJumping = true;
     }
 
     private void IsGrounded()
@@ -58,10 +73,25 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = true;
             canDoubleJump = true;
+            isJumping = false;
+            lastGroundedTime = 0.15f;
         }
         else
         {
             isGrounded = false;
+        }
+        FallGravity();
+    }
+
+    private void FallGravity()
+    {
+        if (rigidBody.velocity.y < 0)
+        {
+            rigidBody.gravityScale = 2f;
+        }
+        else
+        {
+            rigidBody.gravityScale = 1.1f;
         }
     }
 
@@ -72,20 +102,20 @@ public class PlayerController : MonoBehaviour
 
     public void HandleJumpInput(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && isGrounded)
+        if (ctx.performed && lastGroundedTime > 0 && !isJumping)
         {
-            rigidBody.velocity = new Vector2(direction.x, 0);
-            rigidBody.AddForce(new Vector2(0, jumpForce));
+            Jump();
         }
         else if (ctx.performed && !isGrounded && canDoubleJump)
         {
-            rigidBody.velocity = new Vector2(direction.x, 0);
-            rigidBody.AddForce(new Vector2(0, jumpForce));
+            Jump();
             canDoubleJump = false;
         }
+
+        // Jump Cut
         if (ctx.canceled && rigidBody.velocity.y >= 0)
         {
-            rigidBody.velocity = new Vector2(direction.x, 0);
+            rigidBody.AddForce(Vector2.down * rigidBody.velocity.y * (1 - 0.1f), ForceMode2D.Impulse);
         }
     }
 }
