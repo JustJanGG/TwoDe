@@ -10,6 +10,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Transform player;
     public float yThreshold;
     public float xThreshold;
+    public Vector3 mousePos; 
 
     // Start is called before the first frame update
     private void Awake()
@@ -26,7 +27,7 @@ public class CameraController : MonoBehaviour
 
     private void AimLogic()
     {
-        Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+        mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         Vector3 targetPos = (player.position + mousePos) / 2;
 
         targetPos.x = Mathf.Clamp(targetPos.x, -xThreshold + player.position.x, xThreshold + player.position.x);
