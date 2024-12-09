@@ -16,14 +16,8 @@ public class Aiming : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Quaternion quaternion = Quaternion.Euler(camController.mousePos.x, camController.mousePos.y, 0);
-        //Debug.Log(quaternion);
-        //staff.transform.rotation = quaternion;
-        //Debug.Log(staff.transform.rotation);
-
-        Vector2 staffPosition = staff.position;
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 direction = mousePos - staffPosition;
-        staff.transform.right = direction;
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 direction = mousePos - transform.position;
+        staff.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg));
     }
 }
