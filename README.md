@@ -31,4 +31,4 @@ The project demonstrates the following key features of 2D game development:
 
 ## Artists
 
-- **Sevarihk**
+- **Sevarihk** https://aurora-sprites.wixsite.com/main
