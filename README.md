@@ -28,3 +28,7 @@ The project demonstrates the following key features of 2D game development:
 
 - **Jan Haufer**
 - **Lennart Petrick**
+
+## Artists
+
+- **Sevarihk**
