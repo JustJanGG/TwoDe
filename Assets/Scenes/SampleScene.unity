@@ -1493,7 +1493,19 @@ MonoBehaviour:
     m_ActionId: 322c5286-a42c-4f2c-9333-f2659cf1d8f8
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1780584347}
+        m_TargetAssemblyTypeName: Shooting, Assembly-CSharp
+        m_MethodName: HandleShootingInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 31613c20-b38b-45d7-ba29-adab2d02ae7f
     m_ActionName: Player/Fire[/Mouse/leftButton]
   - m_PersistentCalls:
@@ -1615,7 +1627,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   staff: {fileID: 1805054936}
-  camController: {fileID: 1981671224}
+  projectile: {fileID: 8933829782078295996, guid: b4aa534f86128404d8b2680bd91a23f0, type: 3}
 --- !u!1 &1805054935
 GameObject:
   m_ObjectHideFlags: 0
