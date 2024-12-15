@@ -9,6 +9,11 @@ public class Projectile : MonoBehaviour
     public float force;
     public float timeToLive;
     public int damage;
+    public float fireRate;
+
+    [Header("LayerMasks")]
+    public LayerMask groundLayer;
+    public LayerMask enemyLayer;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +32,13 @@ public class Projectile : MonoBehaviour
     {
         if (collision.collider.CompareTag("Enemy"))
         {
-            //collision.gameObject.GetComponent<EnemyStats>().takeDamage(damage);
+            collision.collider.gameObject.GetComponent<EnemyStats>().TakeDamage(damage);
+        }
+
+        var hitLayer = 1 << collision.gameObject.layer;
+        if (hitLayer == groundLayer || hitLayer == enemyLayer)
+        {
+            Destroy(gameObject);
         }
     }
 }
