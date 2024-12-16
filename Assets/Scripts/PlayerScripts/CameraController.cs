@@ -10,7 +10,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Transform player;
     public float yThreshold;
     public float xThreshold;
-    private Vector3 mousePos; 
+    public Vector3 mousePos;
 
     // Start is called before the first frame update
     private void Awake()
