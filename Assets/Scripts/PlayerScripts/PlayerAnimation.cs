@@ -18,13 +18,14 @@ public class PlayerAnimation : MonoBehaviour
     {
         if(staff.rotation.eulerAngles.z > 90 && staff.rotation.eulerAngles.z < 270)
         {
-            transform.localScale = new Vector3(-1, 1, 1);
+            animator.SetFloat("Facing", -1);
         }
         else
         {
-            transform.localScale = new Vector3(1, 1, 1);
+            animator.SetFloat("Facing", 1);
         }
-        animator.SetFloat("Speed", playerController.GetVelocityX());
+        
+        animator.SetFloat("Speed", Mathf.Clamp(playerController.GetVelocityX(), -1, 1));
         animator.SetBool("Grounded", playerController.GetIsGrounded());
     }
 }
