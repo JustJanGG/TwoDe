@@ -30,4 +30,5 @@ public class Shooting : MonoBehaviour
             time = 0;
         }
     }
+
 }

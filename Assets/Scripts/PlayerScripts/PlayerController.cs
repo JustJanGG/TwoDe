@@ -43,7 +43,14 @@ public class PlayerController : MonoBehaviour
         Move();
         IsGrounded();
     }
-
+    public float GetVelocityX()
+    {
+        return rigidBody.velocity.x;
+    }
+    public bool GetIsGrounded()
+    {
+        return isGrounded;
+    }
     private void Move()
     {
         float targetSpeed = direction.x * movementSpeed;
