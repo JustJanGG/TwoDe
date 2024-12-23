@@ -41,11 +41,10 @@ public class Projectile : MonoBehaviour
         var hitLayer = 1 << collision.gameObject.layer;
         if (hitLayer == groundLayer || hitLayer == enemyLayer)
         {
-            //GetComponent<ParticleSystem>().Play();
-            //Debug.Log(GetComponent<ParticleSystem>());
-            ParticleSystem instantiatedExplosion = Instantiate(explosion, transform.position, Quaternion.identity);
+            Vector3 offset = collision.contacts[0].normal * 0.25f;
+            Vector3 spawnPosition = transform.position + offset;
+            ParticleSystem instantiatedExplosion = Instantiate(explosion, spawnPosition, Quaternion.identity);
             instantiatedExplosion.Play();
-            //Debug.Log(explosion);
             Destroy(instantiatedExplosion.gameObject, instantiatedExplosion.main.duration);
             Destroy(gameObject);
         }
