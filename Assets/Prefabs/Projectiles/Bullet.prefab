@@ -181,3 +181,4 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256
+  explosion: {fileID: 7962290514196158648, guid: 2810c790cbb06be49a0937b4f938aed3, type: 3}

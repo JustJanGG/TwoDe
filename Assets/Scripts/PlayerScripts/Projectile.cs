@@ -15,6 +15,9 @@ public class Projectile : MonoBehaviour
     public LayerMask groundLayer;
     public LayerMask enemyLayer;
 
+    [Header("ParticleSystem")]
+    public ParticleSystem explosion;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +41,12 @@ public class Projectile : MonoBehaviour
         var hitLayer = 1 << collision.gameObject.layer;
         if (hitLayer == groundLayer || hitLayer == enemyLayer)
         {
+            //GetComponent<ParticleSystem>().Play();
+            //Debug.Log(GetComponent<ParticleSystem>());
+            ParticleSystem instantiatedExplosion = Instantiate(explosion, transform.position, Quaternion.identity);
+            instantiatedExplosion.Play();
+            //Debug.Log(explosion);
+            Destroy(instantiatedExplosion.gameObject, instantiatedExplosion.main.duration);
             Destroy(gameObject);
         }
     }
