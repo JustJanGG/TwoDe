@@ -16,7 +16,7 @@ public class PlayerAnimation : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if(staff.rotation.eulerAngles.z > 90 && staff.rotation.eulerAngles.z < 270)
+        if (staff.rotation.eulerAngles.z > 90 && staff.rotation.eulerAngles.z < 270)
         {
             animator.SetFloat("Facing", -1);
         }
@@ -24,8 +24,14 @@ public class PlayerAnimation : MonoBehaviour
         {
             animator.SetFloat("Facing", 1);
         }
-        
+
         animator.SetFloat("Speed", Mathf.Clamp(playerController.GetVelocityX(), -1, 1));
         animator.SetBool("Grounded", playerController.GetIsGrounded());
+        float verticalSpeed = Mathf.Clamp(playerController.GetVelocityY(), -2, 2);
+        if (verticalSpeed < 2 && verticalSpeed > -2)
+        {
+            verticalSpeed = 0;
+        }
+        animator.SetFloat("VerticalSpeed", verticalSpeed);
     }
 }

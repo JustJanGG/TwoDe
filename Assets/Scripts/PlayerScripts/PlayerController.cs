@@ -47,6 +47,10 @@ public class PlayerController : MonoBehaviour
     {
         return rigidBody.velocity.x;
     }
+    public float GetVelocityY()
+    {
+        return rigidBody.velocity.y;
+    }
     public bool GetIsGrounded()
     {
         return isGrounded;
