@@ -16,7 +16,7 @@ public class Projectile : MonoBehaviour
     public LayerMask enemyLayer;
 
     [Header("ParticleSystem")]
-    public ParticleSystem explosion;
+    public ParticleSystem impactParticles;
 
     // Start is called before the first frame update
     void Start()
@@ -43,9 +43,9 @@ public class Projectile : MonoBehaviour
         {
             Vector3 offset = collision.contacts[0].normal * 0.25f;
             Vector3 spawnPosition = transform.position + offset;
-            ParticleSystem instantiatedExplosion = Instantiate(explosion, spawnPosition, Quaternion.identity);
-            instantiatedExplosion.Play();
-            Destroy(instantiatedExplosion.gameObject, instantiatedExplosion.main.duration);
+            ParticleSystem instantiatedImpact = Instantiate(impactParticles, spawnPosition, Quaternion.identity);
+            instantiatedImpact.Play();
+            Destroy(instantiatedImpact.gameObject, instantiatedImpact.main.duration);
             Destroy(gameObject);
         }
     }
