@@ -15,6 +15,9 @@ public class Projectile : MonoBehaviour
     public LayerMask groundLayer;
     public LayerMask enemyLayer;
 
+    [Header("ParticleSystem")]
+    public ParticleSystem impactParticles;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +41,11 @@ public class Projectile : MonoBehaviour
         var hitLayer = 1 << collision.gameObject.layer;
         if (hitLayer == groundLayer || hitLayer == enemyLayer)
         {
+            Vector3 offset = collision.contacts[0].normal * 0.25f;
+            Vector3 spawnPosition = transform.position + offset;
+            ParticleSystem instantiatedImpact = Instantiate(impactParticles, spawnPosition, Quaternion.identity);
+            instantiatedImpact.Play();
+            Destroy(instantiatedImpact.gameObject, instantiatedImpact.main.duration);
             Destroy(gameObject);
         }
     }
