@@ -43,6 +43,11 @@ public class PlayerController : MonoBehaviour
         Move();
         IsGrounded();
     }
+    public void Knockback(Vector2 direction, float force)
+    {
+        rigidBody.velocity = new Vector2(0, 0);
+        rigidBody.AddForce(direction * force, ForceMode2D.Impulse);
+    }
     public float GetVelocityX()
     {
         return rigidBody.velocity.x;
