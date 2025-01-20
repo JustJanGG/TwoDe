@@ -11,6 +11,7 @@ public class VictoryTrigger : MonoBehaviour
         {
             Debug.Log("Player won");
             victoryScreen.SetActive(true);
+            Cursor.visible = true;
         }
     }
 }

@@ -19,7 +19,7 @@ TagManager:
   - Enemy
   - PlayerProjectile
   - Trigger
-  - 
+  - Crosshair_Mouse
   - 
   - 
   - 
@@ -43,4 +43,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Crosshair_Mouse
+    uniqueID: 3725574235
     locked: 0

@@ -53,5 +53,6 @@ public class PlayerStats : MonoBehaviour
         Debug.Log("Player died");
         gameOverScreen.SetActive(true);
         player.SetActive(false);
+        Cursor.visible = true;
     }
 }
