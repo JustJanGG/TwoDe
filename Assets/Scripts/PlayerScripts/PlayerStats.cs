@@ -12,12 +12,16 @@ public class PlayerStats : MonoBehaviour
     private bool alive = true;
     private float invincibleTime = 0.5f;
     private float lastTimeHit;
+    public GameObject gameOverScreen;
+    private GameObject player;
+
     // Start is called before the first frame update
     void Start()
     {
         lastTimeHit = Time.time;
         animator = GetComponent<Animator>();
         playerController = GetComponent<PlayerController>();
+        player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -47,5 +51,7 @@ public class PlayerStats : MonoBehaviour
     private void Die()
     {
         Debug.Log("Player died");
+        gameOverScreen.SetActive(true);
+        player.SetActive(false);
     }
 }
